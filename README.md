@@ -10,6 +10,8 @@
 -------------
 
 ### Ejecute el global.sql en su base de datos
+-------------
+
 
 ### Instalation backend Laravel
                 
