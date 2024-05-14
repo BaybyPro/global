@@ -44,7 +44,7 @@ DB_PASSWORD=
 ` ng s`
 
 
-### dependencias
+### Signins
 
 - PHP 8.2
 - Composer https://getcomposer.org
