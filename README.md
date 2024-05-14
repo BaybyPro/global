@@ -9,6 +9,8 @@
 - nodejs 20.4
 -------------
 
+### Ejecute el global.sql en su base de datos
+
 ### Instalation backend Laravel
                 
 1.  Abra un terminal en la ubicación donde guardo el backend
