@@ -1,0 +1,92 @@
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="employeeform" (submit)="submit()" class="space-y-3">
+        <div class="form.group">
+            <label>Primer apellido</label>
+            <div class="input-date2">
+                <span><i class="fa fa-user" aria-hidden="true"></i></span>
+                <input type="text" formControlName="fistLastname" required placeholder="Solo en Mayuscula sin acentos ni Ñ">
+            </div>
+        </div>
+        <div class="form.group">
+            <label>Segundo apellido</label>
+            <div class="input-date2">
+                <span><i class="fa fa-user" aria-hidden="true"></i></span>
+                <input type="text" formControlName="secondLastname" required placeholder="Solo en Mayuscula sin acentos ni Ñ">
+            </div>
+        </div>
+        <div class="form.group">
+            <label>Primer Nombre</label>
+            <div class="input-date2">
+                <span><i class="fa fa-user" aria-hidden="true"></i></span>
+                <input type="text" formControlName="fistName" required placeholder="Solo en Mayuscula sin acentos ni Ñ">
+            </div>
+        </div>
+        <div class="form.group">
+            <label>Otros Nombres</label>
+            <div class="input-date2">
+                <span><i class="fa fa-user" aria-hidden="true"></i></span>
+                <input type="text" formControlName="anotherNames" required placeholder="Mayuscula sin acentos ni Ñ,puede contener espacios">
+            </div>
+        </div>
+        <div class="form.group">
+            <label>Pais</label>
+            <div class="input-date2">
+                <span><i class="fa fa-user" aria-hidden="true"></i></span>
+                <select formControlName="country" required>
+                    <option >Colombia</option>
+                    <option >Estados Unidos</option>
+                </select>
+            </div>
+        </div>
+        <div class="form.group">
+            <label>Tipo de documento</label>
+            <div class="input-date2">
+            <span><i class="fa fa-user" aria-hidden="true"></i></span>
+                <select formControlName="typeId" required>
+                    <option >Cédula de Ciudadanía</option>
+                    <option >Cédula de Extranjería</option>
+                    <option >Pasaporte</option>
+                    <option >Permiso Especial</option>
+                </select>
+            </div>   
+        </div>
+        <div class="form.group">
+            <label>Numero de documento</label>
+            <div class="input-date2">
+                <span><i class="fa fa-user" aria-hidden="true"></i></span>
+                <input type="text" formControlName="idNumber" required>
+            </div>
+        </div>
+        <div class="form.group">
+            <label>Fecha de ingreso</label>
+            <mat-form-field class="example-full-width">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker" #fecha formControlName="dateIncome" (dateChange)="changeDatePicker(fecha.value)">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker">
+                  <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>              
+        </div>
+        <div class="form.group">
+            <label>Area de trabajo</label>
+            <div class="input-date2">
+                <span><i class="fa fa-user" aria-hidden="true"></i></span>
+                    <select formControlName="area" required>
+                        <option >Administración</option>
+                        <option >Financiera</option>
+                        <option >Compras</option>
+                        <option >Infraestructura</option>
+                        <option >Operación</option>
+                        <option >Operación</option>
+                        <option >Talento Humano</option>
+                        <option >Servicios Varios</option>
+                    </select>
+                </div>   
+        </div>
+        <div>
+            <button type="submit" [disabled]="!(employeeform.valid && employeeform.dirty)"  class="w-full justify-center rounded-md bg-teal-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-teal-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600">Agregar</button>
+          </div>
+    </form>
+</mat-dialog-content>
