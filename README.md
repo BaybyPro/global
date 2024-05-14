@@ -30,17 +30,7 @@ DB_PASSWORD=
 1.  Abra un terminal en la ubicación donde guardo el frontend
 2.  Ejecute el siguente comando:
 ` npm install`
-
-3. Configure su .env segund la base de datos su equipo
-```example
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=laravel
-DB_USERNAME=root
-DB_PASSWORD=
-```
-4. Inicie el backend
+3. Inicie el frontend
 ` ng s`
 
 
