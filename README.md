@@ -44,11 +44,13 @@ DB_PASSWORD=
 ` ng s`
 
 
-###Signin
+### dependencias
 
-![](https://cdn.discordapp.com/attachments/819617764544610335/1239852577177210985/image.png?ex=66446e31&is=66431cb1&hm=bca957eed31b030c3b50024f2ed379e995709c4210099e2394c4a179cafac748&)
-
-######El admin es : admin global o admin
-######La contraseña es : global
-
-###End
+- PHP 8.2
+- Composer https://getcomposer.org
+- MySql
+- Laravel v11
+- Angular 17
+- Apache 
+- nodejs 20.4
+-------------
