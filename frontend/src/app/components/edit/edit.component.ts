@@ -13,6 +13,7 @@ import {provideNativeDateAdapter} from '@angular/material/core';
 
 import moment from 'moment';
 import { Employee } from '../../models/employee';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-edit',
@@ -29,9 +30,11 @@ export class EditComponent implements OnInit {
   local:any = localStorage.getItem("employee");
   data:any = JSON.parse(this.local);
   dateIncome:boolean= true;
+  responseMessage:string=''
   constructor(private formBuilder: FormBuilder,
     private employeeService:EmployeeService,
     public dialogRef: MatDialogRef<EditComponent>,
+    private snackBar: SnackbarService
   ){
 
   }
@@ -85,7 +88,12 @@ export class EditComponent implements OnInit {
         window.location.reload();
       },
       (err)=>{
-        console.log(err)
+        if(err.error?.message){
+          this.responseMessage = err.error?.message;
+        }else{
+          this.responseMessage = Global.genericError;
+        }
+        this.snackBar.openSnackBar(this.responseMessage,"error")
       }
     );
   }

@@ -4,3 +4,19 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.black-snackbar {
+    background: rgb(255, 17, 0) !important;
+    color: rgb(255, 255, 255) !important;
+    padding-top: 4px;
+    border-radius: 5%;
+  }
+
+  .green-snackbar {
+    background: #32CD32 !important;
+    color: white !important;
+    padding-top: 4px;
+    border-radius: 5%;
+  }
+

@@ -6,6 +6,13 @@
                 <span><i class="fa fa-user" aria-hidden="true"></i></span>
                 <input type="text" formControlName="fistLastname" required
                     placeholder="Solo en Mayuscula sin acentos ni Ñ">
+                    <!-- Si el campo se deja vacio o sin el formato requerido -->
+                    @if(employeeform.controls.fistLastname.touched && employeeform.controls.fistLastname.invalid){
+                        <mat-error>
+                           @if(employeeform.controls.fistLastname.errors.required){<span>Este campo es obligatorio</span>}
+                           @else if (employeeform.controls.fistLastname.errors.pattern) {<span>Debe ser en Mayuscula sin acentos ni Ñ. Y menos de 20 letras</span>}
+                        </mat-error>
+                    }@else {}
             </div>
         </div>
         <div class="form.group">
@@ -14,6 +21,12 @@
                 <span><i class="fa fa-user" aria-hidden="true"></i></span>
                 <input type="text" formControlName="secondLastname" required
                     placeholder="Solo en Mayuscula sin acentos ni Ñ">
+                    @if(employeeform.controls.secondLastname.touched && employeeform.controls.secondLastname.invalid){
+                        <mat-error>
+                           @if(employeeform.controls.secondLastname.errors.required){<span>Este campo es obligatorio</span>}
+                           @else if (employeeform.controls.secondLastname.errors.pattern) {<span>Debe ser en Mayuscula sin acentos ni Ñ. Y menos de 20 letras</span>}
+                        </mat-error>
+                    }@else {}
             </div>
         </div>
         <div class="form.group">
@@ -21,6 +34,12 @@
             <div class="input-date2">
                 <span><i class="fa fa-user" aria-hidden="true"></i></span>
                 <input type="text" formControlName="fistName" required placeholder="Solo en Mayuscula sin acentos ni Ñ">
+                @if(employeeform.controls.fistName.touched && employeeform.controls.fistName.invalid){
+                    <mat-error>
+                       @if(employeeform.controls.fistName.errors.required){<span>Este campo es obligatorio</span>}
+                       @else if (employeeform.controls.fistName.errors.pattern) {<span>Debe ser en Mayuscula sin acentos, espacios, ni Ñ. Y menos de 20 letras</span>}
+                    </mat-error>
+                }@else {}
             </div>
         </div>
         <div class="form.group">
@@ -29,6 +48,12 @@
                 <span><i class="fa fa-user" aria-hidden="true"></i></span>
                 <input type="text" formControlName="anotherNames" 
                     placeholder="Mayuscula sin acentos ni Ñ,puede contener espacios">
+                    @if(employeeform.controls.anotherNames.touched && employeeform.controls.anotherNames.invalid){
+                        <mat-error>
+                           @if(employeeform.controls.anotherNames.errors.required){<span>Este campo es obligatorio</span>}
+                           @else if (employeeform.controls.anotherNames.errors.pattern) {<span>Debe ser en Mayuscula sin acentos ni Ñ. Y menos de 50 letras</span>}
+                        </mat-error>
+                    }
             </div>
         </div>
         <div class="form.group">
@@ -39,6 +64,11 @@
                     <option>Colombia</option>
                     <option>Estados Unidos</option>
                 </select>
+                @if(employeeform.controls.country.touched && employeeform.controls.country.invalid){
+                    <mat-error>
+                       @if(employeeform.controls.country.errors.required){<span>Este campo es obligatorio</span>}
+                    </mat-error>
+                }@else {}
             </div>
         </div>
         <div class="form.group">
@@ -52,13 +82,24 @@
                     <option>Permiso Especial</option>
                     <option>DNI</option>
                 </select>
+                @if(employeeform.controls.typeId.touched && employeeform.controls.typeId.invalid){
+                    <mat-error>
+                       @if(employeeform.controls.typeId.errors.required){<span>Este campo es obligatorio</span>}
+                    </mat-error>
+                }@else {}
             </div>
         </div>
         <div class="form.group">
-            <label>Numero de documento</label>
+            <label>Número de documento</label>
             <div class="input-date2">
                 <span><i class="fa fa-user" aria-hidden="true"></i></span>
                 <input type="text" formControlName="idNumber" required>
+                @if(employeeform.controls.idNumber.touched && employeeform.controls.idNumber.invalid){
+                    <mat-error>
+                       @if(employeeform.controls.idNumber.errors.required){<span>Este campo es obligatorio</span>}
+                       @else if (employeeform.controls.idNumber.errors.pattern) {<span>Debe ser alfanumérico y no mayor a 20 cifras</span>}
+                    </mat-error>
+                }@else{}
             </div>
         </div>
         @if(dateIncome){
@@ -68,7 +109,8 @@
         </div>
         }@else {
         <div class="form.group">
-            <label>Fecha de ingreso</label>
+            <label>Fecha de ingreso</label><br>
+            <span>no debe ser mayor a la fecha actual, máximo 1 mes antes</span>
             <mat-form-field class="example-full-width">
                 <mat-label>Choose a date</mat-label>
                 <input matInput [matDatepicker]="picker" #fecha formControlName="dateIncome"
@@ -79,6 +121,7 @@
                 </mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
+            
         </div>
         }
         <div class="form.group">
@@ -96,6 +139,11 @@
                     <option>Servicios Varios</option>
                     <option>Desarollador</option>
                 </select>
+                @if(employeeform.controls.area.touched && employeeform.controls.area.invalid){
+                    <mat-error>
+                       @if(employeeform.controls.area.errors.required){<span>Este campo es obligatorio</span>}
+                    </mat-error>
+                }@else {}
             </div>
         </div>
         <div>

@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { SnackbarService } from '../../services/snackbar.service';
+import { Global } from '../../models/global';
 
 @Component({
   selector: 'app-login',
@@ -15,10 +17,12 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   form: any = FormGroup;
+  responseMessage: any;
 
   constructor(private  formBuilder:FormBuilder,
     private authService:AuthService,
-    private router:Router
+    private router:Router,
+    private snackBar:SnackbarService
   ) {
     
   }
@@ -30,6 +34,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  //valida al usurio para acceder al dashboard
   submit(){
     console.log(this.form.getRawValue())
     this.authService.login(this.form.getRawValue()).subscribe(
@@ -37,7 +42,13 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('token',response.token)
           this.router.navigate(['/dashboard']);
       },(err)=>{
-        console.log(err)
+        console.log(err.error?.message)
+        if(err.error?.message){
+          this.responseMessage = err.error?.message;
+        }else{
+          this.responseMessage = Global.genericError
+        }
+        this.snackBar.openSnackBar(this.responseMessage,"error")
       }
     )
   }

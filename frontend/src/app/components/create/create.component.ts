@@ -10,9 +10,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {provideNativeDateAdapter} from '@angular/material/core';
-
-
 import moment from 'moment';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-create',
@@ -29,9 +28,11 @@ export class CreateComponent implements OnInit{
   dateIncome:boolean= false
   employeeform: any = FormGroup;
   fecha:string = ''
+  responseMessage:string=''
   constructor(private formBuilder: FormBuilder,
     private employeeService:EmployeeService,
     public dialogRef: MatDialogRef<CreateComponent>,
+    public snackBar: SnackbarService
   ){
 
   }
@@ -40,8 +41,8 @@ export class CreateComponent implements OnInit{
 
     //validar los campos según especificó 
     this.employeeform = this.formBuilder.group({
-      fistLastname:[null,[Validators.required,Validators.pattern(Global.namesRegex)]],
-      secondLastname:[null,[Validators.required,Validators.pattern(Global.namesRegex)]],
+      fistLastname:[null,[Validators.required,Validators.pattern(Global.lasnameRefex)]],
+      secondLastname:[null,[Validators.required,Validators.pattern(Global.lasnameRefex)]],
       fistName:[null,[Validators.required,Validators.pattern(Global.nameRegex)]],
       anotherNames:[null,[Validators.pattern(Global.namesRegex)]],
       country:[null,[Validators.required]],
@@ -83,7 +84,12 @@ export class CreateComponent implements OnInit{
         window.location.reload();
       },
       (err)=>{
-        console.log(err)
+        if(err.error?.message){
+          this.responseMessage = err.error?.message;
+        }else{
+          this.responseMessage = Global.genericError;
+        }
+        this.snackBar.openSnackBar(this.responseMessage,"error")
       }
     );
   }

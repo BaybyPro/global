@@ -1,6 +1,8 @@
 import { HttpClient, HttpErrorResponse,HttpClientModule } from '@angular/common/http'
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Global } from '../models/global';
+import { routes } from '../app.routes';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +10,7 @@ import { Global } from '../models/global';
 export class AuthService {
 
   url:string
+  routes= inject(Router)
 
   constructor(private _http:HttpClient,
   ) {
@@ -21,5 +24,26 @@ export class AuthService {
 
   getUser(){
     return this._http.get<any>(this.url+'/user', { withCredentials: true });
+  }
+
+  public isAuthenticated(): boolean {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        return false;
+      } else {
+        this.routes.navigate(['/dasboard']);
+        return true;
+      }
+
+    }
+
+  loggedIn() {
+    
+      return !!localStorage.getItem('token');
+  }
+
+  logout() {
+      localStorage.removeItem('token');
+      this.routes.navigate(['/login']);
   }
 }

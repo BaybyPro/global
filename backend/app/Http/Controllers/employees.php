@@ -13,18 +13,32 @@ class employees extends Controller
     public function add(Request $request) {
         $fistName = $request->input('fistName');
         $fistLastName = $request->input('fistLastname');
+        $dateIncome = Carbon::parse($request['dateIncome']);
+        $idNumber = $request->input('idNumber');
+        //obtenemos la fecha actual
+        $currentDate = Carbon::now();
+        // Restar un mes a la fecha actual
+        $subMonthDate = $currentDate->copy()->subMonth();
+        //validamos la fecha de ingreso
+        if ($dateIncome->gt($currentDate) || $dateIncome->lt($subMonthDate)) {
+            return response()->json(['message' => 'La fecha de ingreso no es válida'], 400);
+        }
+
+        // valida el numero de documento del usuario
+        $existingIdNumber = Employee::where('idNumber', $idNumber)->first();
+        if ($existingIdNumber) {
+             return response()->json(['message' => 'Ese número de documento ya se encuentra registrado'], 400);
+        }
     
+
+        // Genera el dominio
+
         // Remueve espacios adicionales en el fistLastname
         $fistLastNameTrim = str_replace(" ","", $fistLastName);
-         
-        
-        
         // Verifica si el fistName y fistLastName ya existen
         $existingEmployee = Employee::where('fistName', $fistName)
                                      ->where('fistLastname', $fistLastName)
                                      ->first();
-    
-        // Genera el dominio
         $domain = ($request->input('country') === 'Colombia') ? 'global.com.co' : 'global.com.us';
         // Si el primer Nombre y apellido ya existe empieza el .1
         if ($existingEmployee) {
@@ -88,6 +102,14 @@ class employees extends Controller
 
         $originalFistName = $employee->fistName;
         $originalFistLastname = $employee->fistLastname;
+        $idNumber = $request->input('idNumber');
+
+        // valida el numero de documento del usuario
+        $existingIdNumber = Employee::where('idNumber', $idNumber)->first();
+        if ($existingIdNumber) {
+             return response()->json(['message' => 'Ese número de documento ya se encuentra registrado'], 400);
+        }
+    
 
         // Actualiza el empleado con los datos proporcionados
         $employee->update([
@@ -125,12 +147,13 @@ class employees extends Controller
          return response()->json(['message' => 'Empleado actualizado correctamente']);
     }
 
+    //BORRAR EMPLEADO
     public function delete(Request $request, $id){
         $employee = Employee::findOrFail($id);
         $employee->delete([]);
         return response()->json(['message' => 'Empleado eliminado correctamente'],200);
     }
-
+    //OBTENER EMPLEADO
     public function getEmployee(Request $request, $id){
         $employee = Employee::findOrFail($id);
         return response()->json(['employee' => $employee],200);
